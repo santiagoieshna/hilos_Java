@@ -20,12 +20,13 @@ public class CallableDemo {
 		Future<Integer> future1= executor.submit(task);
 		Future<Integer> future2 = executor.submit(taskLoop(vueltas));
 		
+		// El metodo .get() bloquea el hilo principal
 		Integer resultado1 = future1.get();
 		System.out.println(resultado1);
 		
 		Integer resultado2 = future2.get(2, TimeUnit.SECONDS);// Si se supera Throw --> TimeoutException
 		System.out.println(resultado2);
-
+		
 		
 		
 	}
@@ -34,7 +35,7 @@ public class CallableDemo {
 	static Callable<Integer> taskLoop(int vueltas) {
 		return ()->{
 			Integer suma = 0;
-			//Thread.sleep(3000); // descomentar para ver como salta la TimeoutException
+			Thread.sleep(3000); // descomentar para ver como salta la TimeoutException
 			for (int i = 0; i < vueltas; i++) {
 				suma+=i;
 			}

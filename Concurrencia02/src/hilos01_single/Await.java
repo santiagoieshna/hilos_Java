@@ -10,9 +10,31 @@ public class Await {
     	
     	ExecutorService executor = Executors.newSingleThreadExecutor();
     	
+    	Runnable tareita = ()->{
+    		try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				throw new RuntimeException(e);
+			}
+    		System.out.println("Obeniendo Datos");
+    	};
     	
+    	try {
+    		executor.execute(tareita);
+    		executor.execute(tareita);
+    		executor.execute(tareita);
+    	}finally {
+			executor.shutdown();
+		}
     	
+    	executor.awaitTermination(4000, TimeUnit.MILLISECONDS);
+    	saveInMySQL();
     	
-
     }
+
+    
+    
+	private static void saveInMySQL() {
+		System.out.println("Guardando datos en BD");
+	}
 }

@@ -24,8 +24,9 @@ public class RunnableDemo {
 		executor.execute(task2);
 		executor.execute(task1);
 		System.out.println("End");
-		//executor.shutdownNow(); //Termina, hayan acabado las tareas o no
+	//	executor.shutdownNow(); //Termina, hayan acabado las tareas o no
 		executor.shutdown(); //Termina cuando acabe de ejecutar todo
+		
 		
 	}
 	
