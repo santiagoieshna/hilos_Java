@@ -5,6 +5,7 @@ public class Allthreads {
 	public static void main(String[] args) {
 		
 		Thread.getAllStackTraces().keySet().forEach(thread->{
+			
 			System.out.println("ID: "+thread.getId());
 			System.out.println("Nombre: "+thread.getName());
 			System.out.println("Estado: "+thread.getState());
@@ -15,7 +16,11 @@ public class Allthreads {
 			
 		});
 		
-
+		/*
+		 * {main : fvaergergewg , thread1 : asfewfgvergvder}} -> [ main, thread1 ]
+		 */
+		
+		
 	}
 
 }
