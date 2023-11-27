@@ -19,11 +19,17 @@ public class Statistics implements Observer {
 	public Statistics(List<FairGround> fairgrounds) {
 		super();
 		rateAtractions = new HashMap<FairGround, FairGroundObservable>();
+		
 		this.fairgrounds =fairgrounds;
-		for (Iterator<FairGround> iterator2 = fairgrounds.iterator(); iterator2.hasNext();) {
-			FairGround fairGround = (FairGround) iterator2.next();
-			rateAtractions.put(fairGround, new FairGroundObservable(fairGround, this));
-		}
+		
+		fairgrounds.forEach(fairground ->{
+			this.rateAtractions.put(fairground, new FairGroundObservable(fairground, this) );
+		});
+		
+//		for (Iterator<FairGround> iterator2 = fairgrounds.iterator(); iterator2.hasNext();) {
+//			FairGround fairGround = (FairGround) iterator2.next();
+//			rateAtractions.put(fairGround, new FairGroundObservable(fairGround, this));
+//		}
 
 	}
 
@@ -47,19 +53,36 @@ public class Statistics implements Observer {
 
 	private void changeFairGroundMap(FairGroundObservable fairObser, FairGround fg, FairGround otherFairGround) {
 		int indexOf = fairgrounds.indexOf(fg);
-		fairgrounds.set(indexOf, otherFairGround);
+		fairgrounds.set(indexOf, otherFairGround); // He remplazado
 		rateAtractions.remove(fg);
 		fairObser.setFairGround(otherFairGround);
 		rateAtractions.put(otherFairGround, fairObser);
+		
+		// reeemplazamos en la lista
+		// Eliminamos la valoracion
+		// Añadimos un observer
+		// Añadimos la valoracion
+		
+		// Estructura de datos a la que meterle Java 8 : Lis Faitground , Map , Map rateAtraction
+//		this.fairgrounds.forEach(fairGroun->{
+//			
+//		});
+		
 	}
 
 	public float getCurrentAverageRate() {
-		float total = 0;
-		for (Iterator iterator = fairgrounds.iterator(); iterator.hasNext();) {
-			FairGround fairGround = (FairGround) iterator.next();
-			total += rateAtractions.get(fairGround).getCurrentValoration();
-		}
-		return total / fairgrounds.size();
+		
+		return (float) this.rateAtractions.entrySet().stream()
+				.map(key->this.rateAtractions.get(key))
+				.map(FairGroundObservable::getCurrentValoration)
+				.mapToDouble(Double::valueOf) 
+				.average().orElse(0);
+		
+//		for (Iterator iterator = fairgrounds.iterator(); iterator.hasNext();) {
+//			FairGround fairGround = (FairGround) iterator.next();
+//			total += rateAtractions.get(fairGround).getCurrentValoration();
+//		}
+//		return total / fairgrounds.size();
 	}
 
 }

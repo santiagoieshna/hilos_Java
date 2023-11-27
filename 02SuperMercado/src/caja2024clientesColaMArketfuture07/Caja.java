@@ -18,7 +18,7 @@ public class Caja implements Callable<Integer> {
 	}
 
 	public String getNombre() {
-		return nombre;
+	 	return nombre;
 	}
 
 	public void setNombre(String nombre) {
@@ -45,7 +45,6 @@ public class Caja implements Callable<Integer> {
 		}
 	}
 
-	@Override
 	public Integer call() {
 		int procesamiento=0;
 		Cliente cliente = null;
@@ -63,7 +62,7 @@ public class Caja implements Callable<Integer> {
 			}
 			
 		} while (!cola.totalClientesAlcanzado());
-		return procesamiento;
+		return Integer.valueOf(procesamiento);
 	}
 
 	public int getClientesAtendidos() {

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import control.WorkingDay;
+import model.park.Park;
 import modelAtractions.FairGround;
 import modelAtractions.Performance;
 import modelAtractions.RollerCoaster;
@@ -22,16 +23,17 @@ class BiasCustomerTest {
 	
 	@BeforeEach
 	void before() throws Exception {
+
 		fairgrounds=new ArrayList<>();
 		fairgrounds.add(new Performance());
 		fairgrounds.add(new Show());
 		fairgrounds.add(new RollerCoaster());
-		workingDay=new WorkingDay();
+		
 	}
 
 	@Test
 	void testTakeRide() {
-		BiasCustomer customer=new BiasCustomer(20,this.fairgrounds,this.workingDay);
+		BiasCustomer customer=new BiasCustomer(20,this.fairgrounds);
 		CustomerCard takeRide = customer.takeRide();
 		Comment.talk(takeRide.getRate());
 		if(takeRide.getRate()<ObjectMother.minimunEnjoyment) {
